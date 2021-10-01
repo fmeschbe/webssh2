@@ -85,6 +85,11 @@ app.get('/ssh/reauth', (req, res) => {
 });
 
 // eslint-disable-next-line complexity
+app.get('/', (req, res) => {
+  res.sendFile(path.join(path.join(publicPath, 'index.htm')));
+});
+
+// eslint-disable-next-line complexity
 app.get('/ssh/host/:host?', (req, res) => {
   res.sendFile(path.join(path.join(publicPath, 'client.htm')));
   // capture, assign, and validate variables
