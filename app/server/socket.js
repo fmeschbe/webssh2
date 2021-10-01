@@ -197,6 +197,10 @@ module.exports = function appSocket(socket) {
           stream.stderr.on('data', (data) => {
             console.error(`STDERR: ${data}`);
           });
+
+          if (socket.request.session.ssh.command) {
+            stream.write(`${socket.request.session.ssh.command} ; exit\n`);
+          }
         }
       );
     });
