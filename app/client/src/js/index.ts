@@ -45,7 +45,6 @@ const terminalContainer = document.getElementById('terminal-container');
 term.loadAddon(fitAddon);
 term.open(terminalContainer);
 term.focus();
-fitAddon.fit();
 
 const socket = io({
   path: '/ssh/socket.io',
@@ -151,7 +150,7 @@ function drawMenu() {
 
 function resizeScreen() {
   fitAddon.fit();
-  socket.emit('resize', { cols: term.cols, rows: term.rows });
+  socket.emit('geometry', term.rows, term.cols);
 }
 
 window.addEventListener('resize', resizeScreen, false);
@@ -168,7 +167,7 @@ socket.on('data', (data: string | Uint8Array) => {
 });
 
 socket.on('connect', () => {
-  socket.emit('geometry', term.cols, term.rows);
+  resizeScreen();
 });
 
 socket.on(
