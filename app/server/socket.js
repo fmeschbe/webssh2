@@ -14,8 +14,6 @@ const dnsPromises = require('dns').promises;
 
 // var fs = require('fs')
 // var hostkeys = JSON.parse(fs.readFileSync('./hostkeyhashes.json', 'utf8'))
-let termCols;
-let termRows;
 
 // public
 module.exports = function appSocket(socket) {
@@ -106,11 +104,29 @@ module.exports = function appSocket(socket) {
       }
     }
 
+    const geometryHandler = {
+      termRows: 25,
+      termCols: 80,
+      updateSshStream: () => {
+        if (geometryHandler.sshStream) {
+          debugWebSSH2(`Updating SSH shell geometry`);
+          geometryHandler.sshStream.setWindow(geometryHandler.termRows, geometryHandler.termCols);
+        }
+      },
+      updateGeometry: (rows, cols) => {
+        debugWebSSH2(`Received geometry: (${rows},${cols})`);
+        geometryHandler.termRows = rows;
+        geometryHandler.termCols = cols;
+        geometryHandler.updateSshStream();
+      },
+      registerSshStream: (sshStream) => {
+        geometryHandler.sshStream = sshStream;
+        geometryHandler.updateSshStream();
+      },
+    };
+    socket.on('geometry', geometryHandler.updateGeometry);
+
     const conn = new SSH();
-    socket.on('geometry', (cols, rows) => {
-      termCols = cols;
-      termRows = rows;
-    });
     conn.on('banner', (data) => {
       // need to convert to cr/lf for proper formatting
       socket.emit('data', data.replace(/\r?\n/g, '\r\n').toString('utf-8'));
@@ -138,8 +154,8 @@ module.exports = function appSocket(socket) {
       conn.shell(
         {
           term: socket.request.session.ssh.term,
-          cols: termCols,
-          rows: termRows,
+          rows: geometryHandler.termRows,
+          cols: geometryHandler.termCols,
         },
         (err, stream) => {
           if (err) {
@@ -161,9 +177,7 @@ module.exports = function appSocket(socket) {
                 debugWebSSH2(`controlData: ${controlData}`);
             }
           });
-          socket.on('resize', (data) => {
-            stream.setWindow(data.rows, data.cols);
-          });
+          geometryHandler.registerSshStream(stream);
           socket.on('disconnecting', (reason) => {
             debugWebSSH2(`SOCKET DISCONNECTING: ${reason}`);
           });
