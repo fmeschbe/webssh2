@@ -90,6 +90,8 @@ docker run --name webssh2 -d -p 2222:2222 -v `pwd`/app/config.json:/usr/src/conf
 
 * **bellStyle** - _string_ - Style of terminal bell: ("sound"|"none"). **Default:** "sound". **Enforced Values:** "sound", "none"
 
+* **command** - _string_ - A single command to be executed in the shell after which shell exits; use a hyphen (`-`) to execute no command. **Default:** **ssh.command** configuration file option.
+
 ## Headers
 
 * **allowreplay** - _boolean_ - Allow use of password replay feature, example `allowreplay: true`
@@ -124,6 +126,8 @@ docker run --name webssh2 -d -p 2222:2222 -v `pwd`/app/config.json:/usr/src/conf
 * **ssh.keepaliveCountMax** - _integer_ - How many consecutive, unanswered SSH-level keepalive packets that can be sent to the server before disconnection (similar to OpenSSH's ServerAliveCountMax config option). **Default:** 10.
 
 * **allowedSubnets** - _array_ - A list of subnets that the server is allowed to connect to via SSH. An empty array means all subnets are permitted; no restriction. **Default:** empty array.
+
+* **ssh.command** - _string_ - A single command to be executed in the shell after which the shell exits. Can be overwritten with **command** GET request var. **Default:** `null`.
 
 * **terminal.cursorBlink** - _boolean_ - Cursor blinks (true), does not (false) **Default:** true.
 

@@ -21,7 +21,8 @@
     "readyTimeout": 20000,
     "keepaliveInterval": 120000,
     "keepaliveCountMax": 10,
-    "allowedSubnets": []
+    "allowedSubnets": [],
+    "command": null
   },
   "terminal": {
     "cursorBlink": true,

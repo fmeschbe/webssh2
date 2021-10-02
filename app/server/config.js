@@ -29,6 +29,7 @@ let config = {
     keepaliveInterval: 120000,
     keepaliveCountMax: 10,
     allowedSubnets: [],
+    command: null,
   },
   terminal: {
     cursorBlink: true,
