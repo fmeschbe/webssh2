@@ -179,6 +179,7 @@ socket.on(
     term.setOption('tabStopWidth', data.tabStopWidth);
     term.setOption('bellStyle', data.bellStyle);
     term.setOption('fontSize', data.fontSize);
+    resizeScreen();
   }
 );
 
