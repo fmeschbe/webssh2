@@ -173,11 +173,12 @@ socket.on('connect', () => {
 
 socket.on(
   'setTerminalOpts',
-  (data: { cursorBlink: any; scrollback: any; tabStopWidth: any; bellStyle: any }) => {
+  (data: { cursorBlink: any; scrollback: any; tabStopWidth: any; bellStyle: any; fontSize: any }) => {
     term.setOption('cursorBlink', data.cursorBlink);
     term.setOption('scrollback', data.scrollback);
     term.setOption('tabStopWidth', data.tabStopWidth);
     term.setOption('bellStyle', data.bellStyle);
+    term.setOption('fontSize', data.fontSize);
   }
 );
 

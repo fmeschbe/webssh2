@@ -35,6 +35,7 @@ let config = {
     scrollback: 10000,
     tabStopWidth: 8,
     bellStyle: 'sound',
+    fontSize: 15,
   },
   header: {
     text: null,

@@ -90,6 +90,8 @@ docker run --name webssh2 -d -p 2222:2222 -v `pwd`/app/config.json:/usr/src/conf
 
 * **bellStyle** - _string_ - Style of terminal bell: ("sound"|"none"). **Default:** "sound". **Enforced Values:** "sound", "none"
 
+* **fontSize** - _integer_ - Size of terminal font in px. This value overwrites the **terminal.fontSize** config file option. **Default:** 15. **Enforced Values:** Min: 1, Max: 100
+
 ## Headers
 
 * **allowreplay** - _boolean_ - Allow use of password replay feature, example `allowreplay: true`
@@ -132,6 +134,8 @@ docker run --name webssh2 -d -p 2222:2222 -v `pwd`/app/config.json:/usr/src/conf
 * **terminal.tabStopWidth** - _integer_ - Tab stops at _n_ characters **Default:** 8.
 
 * **terminal.bellStyle** - _string_ - Style of terminal bell: (sound|none). **Default:** "sound".
+
+* **terminal.fontSize** - _integer_ - Size of terminal font in px. Can be overwritten with **fontSize** GET request var. **Default:** 15.
 
 * **header.text** - _string_ - Specify header text, defaults to `My Header` but may also be set to `null`. When set to `null` no header bar will be displayed on the client.
 

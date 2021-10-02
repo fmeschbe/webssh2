@@ -126,6 +126,10 @@ app.get('/ssh/host/:host?', (req, res) => {
         req.query.bellStyle && ['sound', 'none'].indexOf(req.query.bellStyle) > -1
           ? req.query.bellStyle
           : config.terminal.bellStyle,
+      fontSize:
+        validator.isInt(`${req.query.fontSize}`, { min: 1, max: 100 }) && req.query.fontSize
+          ? req.query.fontSize
+          : config.terminal.fontSize,
     },
     allowreplay:
       config.options.challengeButton ||
