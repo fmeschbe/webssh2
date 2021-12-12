@@ -180,21 +180,13 @@ socket.on('connect', () => {
 
 socket.on(
   'setTerminalOpts',
-<<<<<<< HEAD
   (data: { cursorBlink: any; scrollback: any; tabStopWidth: any; bellStyle: any; fontSize: any }) => {
-    term.setOption('cursorBlink', data.cursorBlink);
-    term.setOption('scrollback', data.scrollback);
-    term.setOption('tabStopWidth', data.tabStopWidth);
-    term.setOption('bellStyle', data.bellStyle);
-    term.setOption('fontSize', data.fontSize);
-    resizeScreen();
-=======
-  (data: { cursorBlink: any; scrollback: any; tabStopWidth: any; bellStyle: any }) => {
     term.options.cursorBlink = data.cursorBlink;
     term.options.scrollback = data.scrollback;
     term.options.tabStopWidth = data.tabStopWidth;
     term.options.bellStyle = data.bellStyle;
->>>>>>> fmeschbe/update-ssh2
+    term.options.fontSize = data.fontSize;
+    resizeScreen();
   }
 );
 
