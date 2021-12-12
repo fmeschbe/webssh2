@@ -5,6 +5,14 @@ import { FitAddon } from 'xterm-addon-fit';
 import { library, dom } from '@fortawesome/fontawesome-svg-core';
 import { faBars, faClipboard, faDownload, faKey, faCog } from '@fortawesome/free-solid-svg-icons';
 
+// for Internet Explorer compatibility... i know gross...
+declare global {
+  interface Navigator {
+      msSaveBlob?: (blob: any, defaultName?: string) => boolean
+      msSaveOrOpenBlob?: (blob: any, defaultName?: string) => boolean
+  }
+}
+
 library.add(faBars, faClipboard, faDownload, faKey, faCog);
 dom.watch();
 
@@ -173,11 +181,11 @@ socket.on('connect', () => {
 socket.on(
   'setTerminalOpts',
   (data: { cursorBlink: any; scrollback: any; tabStopWidth: any; bellStyle: any; fontSize: any }) => {
-    term.setOption('cursorBlink', data.cursorBlink);
-    term.setOption('scrollback', data.scrollback);
-    term.setOption('tabStopWidth', data.tabStopWidth);
-    term.setOption('bellStyle', data.bellStyle);
-    term.setOption('fontSize', data.fontSize);
+    term.options.cursorBlink = data.cursorBlink;
+    term.options.scrollback = data.scrollback;
+    term.options.tabStopWidth = data.tabStopWidth;
+    term.options.bellStyle = data.bellStyle;
+    term.options.fontSize = data.fontSize;
     resizeScreen();
   }
 );
